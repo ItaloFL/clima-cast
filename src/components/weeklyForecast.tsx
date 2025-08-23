@@ -50,11 +50,7 @@ export function WeeklyForecast() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col gap-4 items-center justify-between p-3 rounded-md w-full">
-=======
     <div className="flex flex-col items-center justify-between p-3 rounded-md w-full h-[650px]">
->>>>>>> 1492f44c479e6bf17be5b92ec81f3a62574d4966
       {weeklyForecast &&
         weeklyForecast.list.map((item) => {
           return (
