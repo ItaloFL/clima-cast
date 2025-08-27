@@ -50,7 +50,7 @@ export function WeeklyForecast() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-between p-3 rounded-md w-full h-[650px]">
+    <div className="flex flex-col items-center justify-between p-3 rounded-md w-full h-[650px] xl:py-0 xl:px-3">
       {weeklyForecast &&
         weeklyForecast.list.map((item) => {
           return (

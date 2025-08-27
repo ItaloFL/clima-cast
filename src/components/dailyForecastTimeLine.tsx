@@ -20,29 +20,30 @@ export function DailyForecastTimeLine({ forecast }: DailyForecastRequest) {
   return (
     <>
       <Carousel className="flex items-center xl:gap-12">
-        <CarouselContent className='p-10'>
+        <CarouselContent className='gap-5'>
           {forecast[0].hour
             .filter((_, index) => [4, 8, 12, 16, 20].includes(index))
             .map(item => {
               return (
-                <CarouselItem key={item.time_epoch} className="basis-1/4">
-                  <div className="flex flex-col gap-4 w-[100px] bg-amber-300 rounded items-center justify-around">
-                    <span className="font-semibold">
-                      {new Date(item.time.replace(' ', 'T')).toLocaleTimeString(
-                        'pt-BR',
+                <CarouselItem
+                  key={item.time_epoch}
+                  className="flex flex-col gap-4 basis-1/4 bg-amber-300 rounded items-center text-center xl:gap-2 md:basis-1/5 lg:basis-1/6"
+                >
+                  <div className="font-semibold">
+                    {new Date(item.time.replace(' ', 'T')).toLocaleTimeString(
+                      'pt-BR',
 
-                        {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true
-                        }
-                      )}
-                    </span>
-
-                    <img className="size-18" src={item.condition.icon} alt="" />
-
-                    <span>{Math.round(item.temp_c)}°C</span>
+                      {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                      }
+                    )}
                   </div>
+
+                  <img className="size-18" src={item.condition.icon} alt="" />
+
+                  <div>{Math.round(item.temp_c)}°C</div>
                 </CarouselItem>
               )
             })}
