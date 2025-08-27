@@ -7,7 +7,6 @@ import {
   Wind,
 } from "lucide-react";
 import { Header } from "../components/header";
-// import { WeeklyForecast } from "@/components/weeklyForecast";
 import { useEffect, useState } from "react";
 import { GetDailyForecast } from "@/api/get-daily-forecast";
 import CloudySVG from "../assets/partly-cloudy.svg";
@@ -69,7 +68,7 @@ export function Home() {
       <div className="flex flex-col gap-10 my-[40px] xl:grid xl:grid-cols-9 xl:my-[70px] xl:px-48 xl:gap-2">
         <main className="flex flex-col gap-10 xl:grid xl:col-span-5">
           <div className="flex flex-col w-4/5 px-auto mx-auto items-center justify-around bg-card border border-border rounded-md xl:h-[260px] xl:w-full xl:flex-row">
-            <div className="flex flex-col text-center gap-6 py-10 xl:text-start">
+            <div className="flex flex-col text-center gap-6 py-6 xl:text-start">
               <div>
                 <p className="bg-card text-2xl font-bold">
                   {dailyForecast?.location.name}
@@ -94,7 +93,7 @@ export function Home() {
             )}
           </div>
 
-          <div className="flex h-[180px] w-4/5 mx-auto items-center justify-around bg-card rounded-md border border-border xl:w-full xl:h-[200px]">
+          <div className="flex h-[180px] w-4/5 mx-auto items-center bg-card justify-center rounded-md border border-border xl:w-full xl:h-[200px]">
             {dailyForecast && (
               <DailyForecastTimeLine
                 forecast={dailyForecast.forecast.forecastday}
