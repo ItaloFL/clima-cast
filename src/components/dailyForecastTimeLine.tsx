@@ -27,7 +27,7 @@ export function DailyForecastTimeLine({ forecast }: DailyForecastRequest) {
               return (
                 <CarouselItem
                   key={item.time_epoch}
-                  className="flex flex-col gap-4 basis-1/4 bg-amber-300 rounded items-center text-center xl:gap-2 md:basis-1/5 lg:basis-1/6"
+                  className="flex flex-col gap-4 basis-1/4 rounded items-center text-center xl:gap-2 md:basis-1/5 lg:basis-1/6"
                 >
                   <div className="font-semibold">
                     {new Date(item.time.replace(' ', 'T')).toLocaleTimeString(
