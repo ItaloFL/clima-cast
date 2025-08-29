@@ -4,63 +4,71 @@ import {
   Droplet,
   Sunset,
   Thermometer,
-  Wind,
-} from "lucide-react";
-import { Header } from "../components/header";
-import { useEffect, useState } from "react";
-import { GetDailyForecast } from "@/api/get-daily-forecast";
-import CloudySVG from "../assets/partly-cloudy.svg";
-import SunnySVG from "../assets/sunny.svg";
-import OvercastSVG from "../assets/overcast.svg";
-import { WeeklyForecast } from "@/components/weeklyForecast";
+  Wind
+} from 'lucide-react'
+import { Header } from '../components/header'
+import { useContext, useEffect, useState } from 'react'
+import { GetDailyForecast } from '@/api/get-daily-forecast'
+import CloudySVG from '../assets/partly-cloudy.svg'
+import SunnySVG from '../assets/sunny.svg'
+import OvercastSVG from '../assets/overcast.svg'
+import { WeeklyForecast } from '@/components/weeklyForecast'
 import {
   DailyForecastItem,
-  DailyForecastTimeLine,
-} from "@/components/dailyForecastTimeLine";
+  DailyForecastTimeLine
+} from '@/components/dailyForecastTimeLine'
+import { UserCurrentLocationContext } from '@/context/userCurrentLocationContext'
 
-type WeatherCondition = "Sunny" | "Partly cloudy" | "test" | "Clear";
+type WeatherCondition = 'Sunny' | 'Partly cloudy' | 'test' | 'Clear'
 
 const weatherIconMap: Record<WeatherCondition, string> = {
   Sunny: SunnySVG,
-  "Partly cloudy": CloudySVG,
+  'Partly cloudy': CloudySVG,
   Clear: SunnySVG,
-  test: OvercastSVG,
-};
+  test: OvercastSVG
+}
 
 interface DailyForecastResponse {
   current: {
     condition: {
-      icon: string;
-      text: string;
-    };
-    temp_c: number;
-    feelslike_c: number;
-    pressure_mb: number;
-    uv: number;
-    humidity: number;
-    wind_kph: number;
-  };
+      icon: string
+      text: string
+    }
+    temp_c: number
+    feelslike_c: number
+    pressure_mb: number
+    uv: number
+    humidity: number
+    wind_kph: number
+  }
   location: {
-    country: string;
-    name: string;
-  };
+    country: string
+    name: string
+  }
   forecast: {
-    forecastday: [hour: DailyForecastItem];
-  };
+    forecastday: [hour: DailyForecastItem]
+  }
 }
 
 export function Home() {
   const [dailyForecast, SetDailyForecast] =
-    useState<DailyForecastResponse | null>(null);
+    useState<DailyForecastResponse | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { getUserCurrentLocation } = useContext(UserCurrentLocationContext)
 
   async function getForecastDetails() {
-    const response = await GetDailyForecast({ lat: -9.97, long: -67.86 });
-    SetDailyForecast(response);
+    setIsLoading(true)
+    const { latitude, longitude } = await getUserCurrentLocation()
+    const response = await GetDailyForecast({ latitude, longitude })
+
+    SetDailyForecast(response)
+    setIsLoading(false)
   }
 
   useEffect(() => {
-    getForecastDetails();
-  }, []);
+    getForecastDetails()
+  }, [])
   return (
     <div>
       <Header />
@@ -68,28 +76,36 @@ export function Home() {
       <div className="flex flex-col gap-10 my-[40px] xl:grid xl:grid-cols-9 xl:my-[70px] xl:px-48 xl:gap-2">
         <main className="flex flex-col gap-10 xl:grid xl:col-span-5">
           <div className="flex flex-col w-4/5 px-auto mx-auto items-center justify-around bg-card border border-border rounded-md xl:h-[260px] xl:w-full xl:flex-row">
-            <div className="flex flex-col text-center gap-6 py-6 xl:text-start">
+            {isLoading ? (
               <div>
-                <p className="bg-card text-2xl font-bold">
-                  {dailyForecast?.location.name}
-                </p>
-                <p className="text-muted-foreground font-semibold">
-                  Ensolarado
-                </p>
+                <p>ALOOOOOOOOOOOOOOOOOOOOOO</p>
               </div>
+            ) : (
+              <>
+                <div className="flex flex-col text-center gap-6 py-6 xl:text-start">
+                  <div>
+                    <p className="bg-card text-2xl font-bold">
+                      {dailyForecast?.location.name}
+                    </p>
+                    <p className="text-muted-foreground font-semibold">
+                      Ensolarado
+                    </p>
+                  </div>
 
-              <p className="font-semibold text-4xl">
-                {dailyForecast && Math.round(dailyForecast.current.temp_c)}
-                °C
-              </p>
-            </div>
+                  <p className="font-semibold text-4xl">
+                    {dailyForecast && Math.round(dailyForecast.current.temp_c)}
+                    °C
+                  </p>
+                </div>
 
-            {dailyForecast && (
-              <img
-                className="size-40 xl:size-50"
-                src={dailyForecast.current.condition.icon}
-                alt=""
-              />
+                {dailyForecast && (
+                  <img
+                    className="size-40 xl:size-50"
+                    src={dailyForecast.current.condition.icon}
+                    alt=""
+                  />
+                )}
+              </>
             )}
           </div>
 
