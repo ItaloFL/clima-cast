@@ -17,8 +17,8 @@ export function Header() {
             </button>
           </div>
 
-          <div className="flex gap-2 items-center">
-            <Pin />
+          <div className="hidden gap-2 items-center md:flex xl:flex">
+            <Pin className="size-5"/>
             <span className="text-lg">Rio Branco, AC</span>
           </div>
         </div>

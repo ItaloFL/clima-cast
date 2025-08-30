@@ -18,6 +18,7 @@ import {
   DailyForecastTimeLine
 } from '@/components/dailyForecastTimeLine'
 import { UserCurrentLocationContext } from '@/context/userCurrentLocationContext'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type WeatherCondition = 'Sunny' | 'Partly cloudy' | 'test' | 'Clear'
 
@@ -75,14 +76,21 @@ export function Home() {
 
       <div className="flex flex-col gap-10 my-[40px] xl:grid xl:grid-cols-9 xl:my-[70px] xl:px-48 xl:gap-2">
         <main className="flex flex-col gap-10 xl:grid xl:col-span-5">
-          <div className="flex flex-col w-4/5 px-auto mx-auto items-center justify-around bg-card border border-border rounded-md xl:h-[260px] xl:w-full xl:flex-row">
+          <div className="flex flex-col w-4/5 px-auto mx-auto items-center justify-around bg-card border border-border rounded-md xl:h-[260px] xl:gap-25 xl:w-full md:flex-row md:justify-center md:gap-10 xl:flex-row">
             {isLoading ? (
-              <div>
-                <p>ALOOOOOOOOOOOOOOOOOOOOOO</p>
+              <div className="flex flex-col items-center gap-5 p-6 md:flex-row md:gap-20">
+                <div className="flex flex-col gap-6 items-center md:items-start">
+                  <Skeleton className="w-[150px] p-2 md:h-[30px]" />
+                  <Skeleton className="w-[110px] p-2" />
+
+                  <Skeleton className="w-[70px] h-[40px]" />
+                </div>
+
+                <Skeleton className="size-40 xl:size-50" />
               </div>
             ) : (
               <>
-                <div className="flex flex-col text-center gap-6 py-6 xl:text-start">
+                <div className="flex flex-col text-center gap-6 py-6 md:text-start xl:text-start">
                   <div>
                     <p className="bg-card text-2xl font-bold">
                       {dailyForecast?.location.name}
@@ -100,7 +108,7 @@ export function Home() {
 
                 {dailyForecast && (
                   <img
-                    className="size-40 xl:size-50"
+                    className="size-40 xl:size-45"
                     src={dailyForecast.current.condition.icon}
                     alt=""
                   />
@@ -110,10 +118,20 @@ export function Home() {
           </div>
 
           <div className="flex h-[180px] w-4/5 mx-auto items-center bg-card justify-center rounded-md border border-border xl:w-full xl:h-[200px]">
-            {dailyForecast && (
-              <DailyForecastTimeLine
-                forecast={dailyForecast.forecast.forecastday}
-              />
+            {isLoading ? (
+              <div className="flex gap-2 py-3 xl:gap-6">
+                <Skeleton className="w-[80px] h-[160px]" />
+                <Skeleton className="w-[80px] h-[160px]" />
+                <Skeleton className="w-[80px] h-[160px]" />
+                <Skeleton className="w-[80px] h-[160px]" />
+                <Skeleton className="w-[80px] h-[160px]" />
+              </div>
+            ) : (
+              dailyForecast && (
+                <DailyForecastTimeLine
+                  forecast={dailyForecast.forecast.forecastday}
+                />
+              )
             )}
           </div>
 
@@ -196,7 +214,19 @@ export function Home() {
         </main>
 
         <div className="flex flex-col w-4/5 mx-auto items-center justify-center gap-6 h-full bg-card p-4 rounded-md border border-border xl:col-start-6 xl:col-end-10">
-          <WeeklyForecast />
+          {isLoading ? (
+            <div className="flex flex-col justify-between items-center gap-6 py-8 px-6">
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+              <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />
+            </div>
+          ) : (
+            <WeeklyForecast />
+          )}
         </div>
       </div>
     </div>

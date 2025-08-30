@@ -38,11 +38,14 @@ const weeklyImageMap: Record<string, string> = {
 export function WeeklyForecast() {
   const [weeklyForecast, SetWeeklyForecast] =
     useState<WeeklyForecastResponse | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function getWeeklyForecast() {
+    setIsLoading(true)
     const response = await GetWeeklyForecast({ lat: -9.97, long: -67.86 });
 
     SetWeeklyForecast(response);
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -56,7 +59,7 @@ export function WeeklyForecast() {
           return (
             <div
               key={item.dt}
-              className="flex items-center w-full justify-between pb-5 p-4 bg-card-foreground rounded-md"
+              className="flex items-center w-full justify-between p-3 bg-card-foreground rounded-md xl:pb-5 xl:p-4"
             >
               <div className="flex gap-4 items-center">
                 <img
