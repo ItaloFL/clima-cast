@@ -1,7 +1,22 @@
 import { Button } from '@/components/ui/button'
+import { UserCurrentLocationContext } from '@/context/userCurrentLocationContext'
 import { MapPin } from 'lucide-react'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export function Location() {
+  const { userLocation, getUserCurrentLocation } = useContext(UserCurrentLocationContext)
+  const navigate = useNavigate()
+
+  console.log(`Verificando a userlocation: ${userLocation}`)
+  const handleClickToGetUserLocation = async () => {
+    try {
+      await getUserCurrentLocation()
+      navigate('/home')
+    } catch (error) {
+      console.log('deu erro au chefe')
+    }
+  }
   return (
     <>
       <div className="flex w-screen h-screen justify-center items-center">
@@ -13,6 +28,7 @@ export function Location() {
           </div>
 
           <Button
+            onClick={handleClickToGetUserLocation}
             className="uppercase p-3 text-sm w-[240px] h-[50px] cursor-pointer"
             variant="secondary"
           >
