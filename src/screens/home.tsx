@@ -74,7 +74,7 @@ export function Home() {
     <div>
       <Header />
 
-      <div className="flex flex-col gap-10 my-[40px] xl:grid xl:grid-cols-9 xl:my-[70px] xl:px-48 xl:gap-2">
+      <div className="flex gap-10 my-[40px] xl:grid xl:grid-cols-9 xl:my-[70px] xl:px-48 xl:gap-2">
         <main className="flex flex-col gap-10 xl:grid xl:col-span-5">
           <div className="flex flex-col w-4/5 px-auto mx-auto items-center justify-around bg-card border border-border rounded-md xl:h-[260px] xl:gap-25 xl:w-full md:flex-row md:justify-center md:gap-10 xl:flex-row">
             {isLoading ? (
@@ -213,7 +213,7 @@ export function Home() {
           </div>
         </main>
 
-        <div className="flex flex-col w-4/5 mx-auto items-center justify-center gap-6 h-full bg-card p-4 rounded-md border border-border xl:col-start-6 xl:col-end-10">
+        <div className="flex flex-col w-3/4 mx-auto items-center justify-center gap-6 h-full bg-card p-4 rounded-md border border-border xl:col-start-6 xl:col-end-10">
           {isLoading ? (
             <div className="flex flex-col justify-between items-center gap-6 py-8 px-6">
               <Skeleton className="w-[335px] h-[80px] md:w-[550px] xl:w-[335px] p-4" />

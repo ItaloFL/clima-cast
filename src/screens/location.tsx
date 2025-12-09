@@ -5,10 +5,9 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export function Location() {
-  const { userLocation, getUserCurrentLocation } = useContext(UserCurrentLocationContext)
+  const { getUserCurrentLocation } = useContext(UserCurrentLocationContext)
   const navigate = useNavigate()
 
-  console.log(`Verificando a userlocation: ${userLocation}`)
   const handleClickToGetUserLocation = async () => {
     try {
       await getUserCurrentLocation()
